@@ -61,7 +61,6 @@ jobs:
 
   release:
     needs: [build, lint]
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
