@@ -15,3 +15,5 @@
 *.out
 /coverage.out
 /coverage.html
+# Added by goreleaser init:
+dist/
