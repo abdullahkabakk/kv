@@ -1,5 +1,7 @@
 # Key Value Store
 
+[![codecov](https://codecov.io/gh/abdullahkabakk/kv/graph/badge.svg?token=AK1JYJ9JKF)](https://codecov.io/gh/abdullahkabakk/kv)
+
 A simple, thread-safe key-value store library for Go with persistence support.
 
 ## Features
