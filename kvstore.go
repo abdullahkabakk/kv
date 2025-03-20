@@ -3,6 +3,7 @@ package kvstore
 import (
 	"encoding/json"
 	"os"
+	"path/filepath"
 	"sync"
 )
 
@@ -58,7 +59,7 @@ func (s *Store) SaveToFile(filename string) error {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 
-	file, err := os.Create(filename)
+	file, err := os.Create(filepath.Clean(filename))
 	if err != nil {
 		return err
 	}
@@ -75,7 +76,7 @@ func (s *Store) SaveToFile(filename string) error {
 
 // LoadFromFile loads a store from a JSON file
 func (s *Store) LoadFromFile(filename string) error {
-	file, err := os.Open(filename)
+	file, err := os.OpenFile(filepath.Clean(filename), os.O_RDONLY, 0)
 	if err != nil {
 		return err
 	}
