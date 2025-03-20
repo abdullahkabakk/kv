@@ -1,8 +1,12 @@
 name: Release
 
 on:
-  pull_request:
-    types: [opened, synchronize]
+  push:
+    branches: [main]
+    tags:
+      - 'v*'
+#  pull_request:
+#    types: [opened, synchronize]
 
 jobs:
   security:
