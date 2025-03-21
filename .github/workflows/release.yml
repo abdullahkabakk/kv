@@ -12,6 +12,7 @@ jobs:
     permissions:
       contents: write
       packages: write
+      discussions: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -57,6 +58,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Cleanup Previous Release
+        run: |
+          # Delete the GitHub Release
+          gh release delete "${{ github.ref_name }}" --yes || true
+
+          # Delete the Git tag (local and remote)
+          git tag -d "${{ github.ref_name }}" || true
+          git push origin ":refs/tags/${{ github.ref_name }}" || true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
@@ -64,6 +76,7 @@ jobs:
           body: ${{ steps.changelog.outputs.changelog }}
           generate_release_notes: true
           discussion_category_name: "Announcements"
+          tag_name: ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
