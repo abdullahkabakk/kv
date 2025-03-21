@@ -60,8 +60,7 @@ jobs:
         run: go mod verify
 
       - name: Build
-        run: go build -v -o bin/app ./cmd/myapp
-
+        run: go build -v -o bin/ ./...
       - name: Run go vet
         run: go vet ./...
 
